@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pax & Choco Publishing</title>
+<meta name="description" content="Publisher of The Ultimate Video Game Puzzle Book — 100 retro gaming puzzles for true players.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:   #EDE5C0;
+    --paper-d: #D8CC90;
+    --ink:     #1A0A00;
+    --muted:   #6B5A30;
+    --gold:    #B8860B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    font-family: 'IM Fell English', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  /* Aged paper texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 22px,
+      rgba(0,0,0,0.03) 22px, rgba(0,0,0,0.03) 23px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    background: var(--paper);
+    max-width: 620px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 8px var(--ink), 0 0 0 10px var(--gold), 0 30px 80px rgba(0,0,0,0.7);
+  }
+
+  .rule-thick { height: 4px; background: var(--ink); }
+  .rule-thin  { height: 1px; background: var(--ink); }
+
+  /* Header */
+  .header {
+    padding: 1.6rem 2.2rem 1.4rem;
+    text-align: center;
+  }
+  .publisher-name {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.05;
+  }
+  .header-sub {
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+
+  /* Book section */
+  .book-section {
+    padding: 2rem 2.2rem;
+    display: flex;
+    gap: 1.8rem;
+    align-items: flex-start;
+  }
+
+  .book-cover-placeholder {
+    flex-shrink: 0;
+    width: 120px;
+    height: 168px;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.6rem;
+    text-align: center;
+    gap: 0.3rem;
+  }
+  .book-cover-placeholder .bc-pub {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.38rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+  }
+  .book-cover-placeholder .bc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1.2;
+  }
+  .book-cover-placeholder .bc-divider {
+    width: 60%;
+    height: 1px;
+    background: var(--gold);
+    margin: 0.2rem 0;
+  }
+  .book-cover-placeholder .bc-sub {
+    font-size: 0.38rem;
+    color: #C8BC98;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .book-info { flex: 1; }
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+  }
+  .book-subtitle {
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+    line-height: 1.5;
+  }
+  .book-desc {
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .contents-list {
+    list-style: none;
+    margin-bottom: 1.2rem;
+  }
+  .contents-list li {
+    font-size: 0.78rem;
+    color: var(--ink);
+    padding: 0.2rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .contents-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+
+  .buy-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Special Elite', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    padding: 0.7rem 1.6rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .buy-btn:hover { background: var(--muted); }
+
+  /* Divider */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0 2.2rem;
+    margin: 0.5rem 0;
+  }
+  .ornament::before, .ornament::after {
+    content: ''; flex: 1; height: 1px; background: var(--ink);
+  }
+  .ornament span { font-size: 0.9rem; color: var(--ink); }
+
+  /* Secret teaser */
+  .secret-section {
+    padding: 1.4rem 2.2rem 1.6rem;
+    text-align: center;
+  }
+  .secret-eyebrow {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .secret-text {
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .secret-link {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--muted);
+    transition: color 0.2s;
+  }
+  .secret-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* Footer */
+  .footer {
+    padding: 0.7rem 2.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--ink);
+  }
+  .footer span {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  @media (max-width: 480px) {
+    .book-section { flex-direction: column; }
+    .book-cover-placeholder { width: 100%; height: 100px; flex-direction: row; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="rule-thick"></div>
+  <div class="rule-thin" style="margin-top:4px"></div>
+
+  <div class="header">
+    <div class="publisher-name">PAX &amp; CHOCO PUBLISHING</div>
+    <div class="header-title">The Puzzle<br>Starts Here.</div>
+    <div class="header-sub">Independent publisher of puzzle books for true players.</div>
+  </div>
+
+  <div class="rule-thin"></div>
+  <div class="rule-thick" style="margin-top:3px"></div>
+
+  <div class="book-section">
+
+    <!-- Book cover placeholder — replace src with real cover image once available -->
+    <div class="book-cover-placeholder">
+      <div class="bc-pub">PAX &amp; CHOCO</div>
+      <div class="bc-divider"></div>
+      <div class="bc-title">THE ULTIMATE VIDEO GAME PUZZLE BOOK</div>
+      <div class="bc-divider"></div>
+      <div class="bc-sub">100 Retro &amp; Classic Gaming Puzzles</div>
+    </div>
+
+    <div class="book-info">
+      <div class="book-title">The Ultimate Video Game Puzzle Book</div>
+      <div class="book-subtitle">100 Retro &amp; Classic Gaming Puzzles for True Players</div>
+      <div class="book-desc">
+        Every puzzle built from the ground up for players who actually grew up with
+        a controller in their hand — or wish they had.
+      </div>
+      <ul class="contents-list">
+        <li>25 Word Searches</li>
+        <li>25 Crosswords</li>
+        <li>25 Trivia Pages — 250 questions</li>
+        <li>25 Logic Puzzles</li>
+        <li>One hidden secret running through all 100</li>
+      </ul>
+      <a class="buy-btn" href="https://www.amazon.com" target="_blank" rel="noopener">
+        BUY ON AMAZON
+      </a>
+    </div>
+
+  </div>
+
+  <div class="rule-thin"></div>
+  <div class="rule-thick" style="margin-top:3px"></div>
+
+  <div class="ornament" style="margin-top:1.2rem"><span>✦</span></div>
+
+  <div class="secret-section">
+    <div class="secret-eyebrow">FOR THOSE WHO FINISHED IT</div>
+    <div class="secret-text">
+      You found all 100 puzzles.<br>
+      You noticed the marks.<br>
+      You know where to go.
+    </div>
+    <a class="secret-link" href="/secret">paxandchoco.com/secret</a>
+  </div>
+
+  <div class="ornament"><span>✦</span></div>
+
+  <div class="rule-thick" style="margin-top:0.8rem"></div>
+  <div class="rule-thin" style="margin-top:3px"></div>
+
+  <div class="footer">
+    <span>PAX &amp; CHOCO PUBLISHING</span>
+    <span>&copy; 2025</span>
+  </div>
+
+</div>
+</body>
+</html>
