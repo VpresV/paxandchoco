@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Pax & Choco Publishing</title>
+<meta name="description" content="Pax & Choco Publishing is a tiny independent studio making puzzle books for people who grew up with a controller in their hands.">
+<meta property="og:title" content="About | Pax & Choco Publishing">
+<meta property="og:description" content="Pax & Choco Publishing is a tiny independent studio making puzzle books for people who grew up with a controller in their hands.">
+<meta property="og:image" content="https://paxandchoco.com/assets/img/og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0b1e">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/PressStart2P-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.about { padding: 54px 0 10px; }
+.about .wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 34px; align-items: start; }
+.about h1 { font-size: clamp(20px, 3vw, 28px); color: var(--yellow); margin: 16px 0 22px; text-shadow: 3px 3px 0 var(--magenta); }
+.about p { margin-bottom: 16px; color: var(--muted); }
+.about p strong { color: var(--text); }
+.side { padding: 24px; text-align: center; }
+.side .dogs { font-family: var(--pixel); font-size: 14px; color: var(--cyan); line-height: 2; margin: 14px 0; }
+@media (max-width: 820px) { .about .wrap { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><path fill="#ffd319" d="M4 0h1v1H4zM3 1h3v2H3zM0 3h9v1H0zM1 4h7v1H1zM2 5h5v2H2zM1 7h3v1H1zM5 7h3v1H5zM0 8h1v1H0zM8 8h1v1H8z"/></svg><span>PAX &amp; CHOCO</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/secret/">Secret Level</a>
+      <a href="/about/" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="about">
+  <div class="wrap">
+    <div>
+      <span class="tag">ABOUT US</span>
+      <h1>Pax &amp; Choco Publishing</h1>
+      <p><strong>We make puzzle books for players.</strong> People who grew up blowing into cartridges, saving quarters for the arcade and staying up far too late for one more level. Or who wish they had.</p>
+      <p>We are a tiny independent studio. Every puzzle in our books is written, tested and checked by hand, then checked again by a solver to make sure it has exactly one answer. If a puzzle is unfair, we consider that our bug, not yours.</p>
+      <p>Our first book, <a href="/">The Ultimate Video Game Puzzle Book</a>, hides a secret level across all of its pages. Finding it is optional. Finding it is also the best part.</p>
+      <p>Pax and Choco are our dogs. They did not help with the puzzles. They helped with everything else.</p>
+    </div>
+    <aside class="side frame">
+      <span class="tag cyan">THE TEAM</span>
+      <div class="dogs">PAX<br>&amp;<br>CHOCO</div>
+      <p class="term muted">Chief morale officers.<br>Professional nappers.<br>Zero puzzles solved.</p>
+    </aside>
+  </div>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <span>&copy; <span data-year>2026</span> PAX &amp; CHOCO PUBLISHING</span>
+    <span>INSERT COIN TO CONTINUE</span>
+  </div>
+</footer>
+<script src="/assets/site.js"></script>
+</body>
+</html>

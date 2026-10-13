@@ -3,319 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pax & Choco Publishing</title>
-<meta name="description" content="Publisher of The Ultimate Video Game Puzzle Book — 100 retro gaming puzzles for true players.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet">
+<title>The Ultimate Video Game Puzzle Book | Pax & Choco Publishing</title>
+<meta name="description" content="A retro gaming puzzle book: logic and grid puzzles, gaming trivia, crosswords and word games, with a hidden code running through every page.">
+<meta property="og:title" content="The Ultimate Video Game Puzzle Book | Pax & Choco Publishing">
+<meta property="og:description" content="A retro gaming puzzle book: logic and grid puzzles, gaming trivia, crosswords and word games, with a hidden code running through every page.">
+<meta property="og:image" content="https://paxandchoco.com/assets/img/og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0b1e">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/PressStart2P-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
 <style>
-  :root {
-    --paper:   #EDE5C0;
-    --paper-d: #D8CC90;
-    --ink:     #1A0A00;
-    --muted:   #6B5A30;
-    --gold:    #B8860B;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--ink);
-    font-family: 'IM Fell English', Georgia, serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1rem;
-  }
-
-  /* Aged paper texture */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      0deg, transparent, transparent 22px,
-      rgba(0,0,0,0.03) 22px, rgba(0,0,0,0.03) 23px
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .page {
-    background: var(--paper);
-    max-width: 620px;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 0 8px var(--ink), 0 0 0 10px var(--gold), 0 30px 80px rgba(0,0,0,0.7);
-  }
-
-  .rule-thick { height: 4px; background: var(--ink); }
-  .rule-thin  { height: 1px; background: var(--ink); }
-
-  /* Header */
-  .header {
-    padding: 1.6rem 2.2rem 1.4rem;
-    text-align: center;
-  }
-  .publisher-name {
-    font-family: 'Special Elite', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-  }
-  .header-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 900;
-    color: var(--ink);
-    line-height: 1.05;
-  }
-  .header-sub {
-    font-style: italic;
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-top: 0.5rem;
-  }
-
-  /* Book section */
-  .book-section {
-    padding: 2rem 2.2rem;
-    display: flex;
-    gap: 1.8rem;
-    align-items: flex-start;
-  }
-
-  .book-cover-placeholder {
-    flex-shrink: 0;
-    width: 120px;
-    height: 168px;
-    background: var(--ink);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 0.6rem;
-    text-align: center;
-    gap: 0.3rem;
-  }
-  .book-cover-placeholder .bc-pub {
-    font-family: 'Special Elite', monospace;
-    font-size: 0.38rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-  }
-  .book-cover-placeholder .bc-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.65rem;
-    font-weight: 900;
-    color: var(--paper);
-    line-height: 1.2;
-  }
-  .book-cover-placeholder .bc-divider {
-    width: 60%;
-    height: 1px;
-    background: var(--gold);
-    margin: 0.2rem 0;
-  }
-  .book-cover-placeholder .bc-sub {
-    font-size: 0.38rem;
-    color: #C8BC98;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  .book-info { flex: 1; }
-  .book-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: var(--ink);
-    margin-bottom: 0.3rem;
-    line-height: 1.2;
-  }
-  .book-subtitle {
-    font-style: italic;
-    font-size: 0.78rem;
-    color: var(--muted);
-    margin-bottom: 0.9rem;
-    line-height: 1.5;
-  }
-  .book-desc {
-    font-size: 0.82rem;
-    line-height: 1.75;
-    color: var(--ink);
-    margin-bottom: 1rem;
-  }
-
-  .contents-list {
-    list-style: none;
-    margin-bottom: 1.2rem;
-  }
-  .contents-list li {
-    font-size: 0.78rem;
-    color: var(--ink);
-    padding: 0.2rem 0;
-    padding-left: 1rem;
-    position: relative;
-    line-height: 1.5;
-  }
-  .contents-list li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--muted);
-  }
-
-  .buy-btn {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--paper);
-    font-family: 'Special Elite', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    padding: 0.7rem 1.6rem;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .buy-btn:hover { background: var(--muted); }
-
-  /* Divider */
-  .ornament {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 0 2.2rem;
-    margin: 0.5rem 0;
-  }
-  .ornament::before, .ornament::after {
-    content: ''; flex: 1; height: 1px; background: var(--ink);
-  }
-  .ornament span { font-size: 0.9rem; color: var(--ink); }
-
-  /* Secret teaser */
-  .secret-section {
-    padding: 1.4rem 2.2rem 1.6rem;
-    text-align: center;
-  }
-  .secret-eyebrow {
-    font-family: 'Special Elite', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.25em;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
-  }
-  .secret-text {
-    font-style: italic;
-    font-size: 0.88rem;
-    color: var(--ink);
-    line-height: 1.7;
-    margin-bottom: 0.8rem;
-  }
-  .secret-link {
-    font-family: 'Special Elite', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--muted);
-    transition: color 0.2s;
-  }
-  .secret-link:hover { color: var(--ink); border-bottom-color: var(--ink); }
-
-  /* Footer */
-  .footer {
-    padding: 0.7rem 2.2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--ink);
-  }
-  .footer span {
-    font-family: 'Special Elite', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-  }
-
-  @media (max-width: 480px) {
-    .book-section { flex-direction: column; }
-    .book-cover-placeholder { width: 100%; height: 100px; flex-direction: row; gap: 1rem; }
-  }
+.hero { padding: 54px 0 30px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 52px; align-items: center; }
+.cover { padding: 10px; transform: rotate(-2deg); max-width: 420px; justify-self: center; }
+.cover img { display: block; width: 100%; height: auto; }
+.hero .logo { font-size: clamp(26px, 4.4vw, 44px); text-align: left; margin: 16px 0 22px; }
+.hero .lede { color: var(--muted); max-width: 48ch; }
+.kicker { font-family: var(--term); font-size: 24px; color: var(--cyan); }
+.cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; font-family: var(--term); font-size: 21px; color: var(--muted); }
+.facts b { color: var(--yellow); font-weight: 400; }
+section { padding: 36px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.card { padding: 22px 20px; }
+.card p { color: var(--muted); font-size: 15px; }
+.card .ico { width: 36px; height: 36px; margin-bottom: 14px; }
+.room { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 0; overflow: hidden; }
+.room img { display: block; width: 100%; height: 100%; object-fit: cover; min-height: 280px; }
+.room .txt { padding: 34px 32px; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.room .big { font-family: var(--pixel); font-size: clamp(16px, 2.2vw, 22px); line-height: 1.6; color: var(--magenta); }
+@media (max-width: 860px) {
+  .hero .wrap, .room { grid-template-columns: 1fr; }
+  .hero .logo { text-align: center; }
+  .hero .kicker, .hero .lede { text-align: center; margin: 0 auto; }
+  .cta, .facts { justify-content: center; }
+  .cover { max-width: 320px; }
+  .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) { .grid4 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<div class="page">
-
-  <div class="rule-thick"></div>
-  <div class="rule-thin" style="margin-top:4px"></div>
-
-  <div class="header">
-    <div class="publisher-name">PAX &amp; CHOCO PUBLISHING</div>
-    <div class="header-title">The Puzzle<br>Starts Here.</div>
-    <div class="header-sub">Independent publisher of puzzle books for true players.</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true"><path fill="#ffd319" d="M4 0h1v1H4zM3 1h3v2H3zM0 3h9v1H0zM1 4h7v1H1zM2 5h5v2H2zM1 7h3v1H1zM5 7h3v1H5zM0 8h1v1H0zM8 8h1v1H8z"/></svg><span>PAX &amp; CHOCO</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/secret/">Secret Level</a>
+      <a href="/about/">About</a>
+    </nav>
   </div>
+</header>
 
-  <div class="rule-thin"></div>
-  <div class="rule-thick" style="margin-top:3px"></div>
-
-  <div class="book-section">
-
-    <!-- Book cover placeholder — replace src with real cover image once available -->
-    <div class="book-cover-placeholder">
-      <div class="bc-pub">PAX &amp; CHOCO</div>
-      <div class="bc-divider"></div>
-      <div class="bc-title">THE ULTIMATE VIDEO GAME PUZZLE BOOK</div>
-      <div class="bc-divider"></div>
-      <div class="bc-sub">100 Retro &amp; Classic Gaming Puzzles</div>
-    </div>
-
-    <div class="book-info">
-      <div class="book-title">The Ultimate Video Game Puzzle Book</div>
-      <div class="book-subtitle">100 Retro &amp; Classic Gaming Puzzles for True Players</div>
-      <div class="book-desc">
-        Every puzzle built from the ground up for players who actually grew up with
-        a controller in their hand — or wish they had.
+<main id="main">
+  <div class="hero">
+    <div class="wrap">
+      <div class="cover frame">
+        <img src="/assets/img/cover-front.jpg" width="900" height="1164" alt="Book cover: a pixel-art explorer with a lantern stands before a giant maze of crossword blocks and a swirling portal">
       </div>
-      <ul class="contents-list">
-        <li>25 Word Searches</li>
-        <li>25 Crosswords</li>
-        <li>25 Trivia Pages — 250 questions</li>
-        <li>25 Logic Puzzles</li>
-        <li>One hidden secret running through all 100</li>
-      </ul>
-      <a class="buy-btn" href="https://www.amazon.com" target="_blank" rel="noopener">
-        BUY ON AMAZON
-      </a>
+      <div>
+        <div class="kicker">&gt; PLAYER 1, READY<span class="blink">_</span></div>
+        <h1 class="logo" aria-label="The Ultimate Video Game Puzzle Book">
+  <span class="ln sm">The Ultimate</span>
+  <span class="ln big">Video Game</span>
+  <span class="ln big">Puzzle Book</span>
+</h1>
+        <p class="lede">Remember the glow of the screen long after bedtime? This book brings that feeling back, one puzzle at a time. Logic grids, gaming trivia, crosswords and word games from the golden age of video games, and a secret level hidden across every section.</p>
+        <div class="cta">
+          <a class="btn" data-amazon="GET IT ON AMAZON">COMING SOON ON AMAZON</a>
+          <a class="btn ghost" href="/secret/">I CRACKED THE CODE</a>
+        </div>
+        <div class="facts"><span><b>120</b> pages</span><span><b>8.5&times;11"</b> paperback</span><span><b>1</b> hidden code</span></div>
+      </div>
     </div>
-
   </div>
 
-  <div class="rule-thin"></div>
-  <div class="rule-thick" style="margin-top:3px"></div>
-
-  <div class="ornament" style="margin-top:1.2rem"><span>✦</span></div>
-
-  <div class="secret-section">
-    <div class="secret-eyebrow">FOR THOSE WHO FINISHED IT</div>
-    <div class="secret-text">
-      You found all 100 puzzles.<br>
-      You noticed the marks.<br>
-      You know where to go.
+  <section>
+    <div class="wrap">
+      <h2>INSIDE THE CARTRIDGE</h2>
+      <div class="grid4">
+        <div class="card frame"><svg class="ico" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="0" width="1" height="1" fill="#2de2e6"/><rect x="1" y="0" width="1" height="1" fill="#2de2e6"/><rect x="2" y="0" width="1" height="1" fill="#2de2e6"/><rect x="3" y="0" width="1" height="1" fill="#2de2e6"/><rect x="4" y="0" width="1" height="1" fill="#2de2e6"/><rect x="5" y="0" width="1" height="1" fill="#2de2e6"/><rect x="6" y="0" width="1" height="1" fill="#2de2e6"/><rect x="7" y="0" width="1" height="1" fill="#2de2e6"/><rect x="0" y="1" width="1" height="1" fill="#2de2e6"/><rect x="1" y="1" width="1" height="1" fill="#ecebff"/><rect x="2" y="1" width="1" height="1" fill="#ecebff"/><rect x="3" y="1" width="1" height="1" fill="#2de2e6"/><rect x="4" y="1" width="1" height="1" fill="#ecebff"/><rect x="5" y="1" width="1" height="1" fill="#ecebff"/><rect x="6" y="1" width="1" height="1" fill="#ecebff"/><rect x="7" y="1" width="1" height="1" fill="#2de2e6"/><rect x="0" y="2" width="1" height="1" fill="#2de2e6"/><rect x="1" y="2" width="1" height="1" fill="#ecebff"/><rect x="2" y="2" width="1" height="1" fill="#ecebff"/><rect x="3" y="2" width="1" height="1" fill="#2de2e6"/><rect x="4" y="2" width="1" height="1" fill="#ecebff"/><rect x="5" y="2" width="1" height="1" fill="#ecebff"/><rect x="6" y="2" width="1" height="1" fill="#ecebff"/><rect x="7" y="2" width="1" height="1" fill="#2de2e6"/><rect x="0" y="3" width="1" height="1" fill="#2de2e6"/><rect x="1" y="3" width="1" height="1" fill="#2de2e6"/><rect x="2" y="3" width="1" height="1" fill="#2de2e6"/><rect x="3" y="3" width="1" height="1" fill="#2de2e6"/><rect x="4" y="3" width="1" height="1" fill="#2de2e6"/><rect x="5" y="3" width="1" height="1" fill="#2de2e6"/><rect x="6" y="3" width="1" height="1" fill="#2de2e6"/><rect x="7" y="3" width="1" height="1" fill="#2de2e6"/><rect x="0" y="4" width="1" height="1" fill="#2de2e6"/><rect x="1" y="4" width="1" height="1" fill="#ecebff"/><rect x="2" y="4" width="1" height="1" fill="#ecebff"/><rect x="3" y="4" width="1" height="1" fill="#ecebff"/><rect x="4" y="4" width="1" height="1" fill="#2de2e6"/><rect x="5" y="4" width="1" height="1" fill="#ecebff"/><rect x="6" y="4" width="1" height="1" fill="#ecebff"/><rect x="7" y="4" width="1" height="1" fill="#2de2e6"/><rect x="0" y="5" width="1" height="1" fill="#2de2e6"/><rect x="1" y="5" width="1" height="1" fill="#ecebff"/><rect x="2" y="5" width="1" height="1" fill="#ecebff"/><rect x="3" y="5" width="1" height="1" fill="#ecebff"/><rect x="4" y="5" width="1" height="1" fill="#2de2e6"/><rect x="5" y="5" width="1" height="1" fill="#ecebff"/><rect x="6" y="5" width="1" height="1" fill="#ecebff"/><rect x="7" y="5" width="1" height="1" fill="#2de2e6"/><rect x="0" y="6" width="1" height="1" fill="#2de2e6"/><rect x="1" y="6" width="1" height="1" fill="#ecebff"/><rect x="2" y="6" width="1" height="1" fill="#ecebff"/><rect x="3" y="6" width="1" height="1" fill="#ecebff"/><rect x="4" y="6" width="1" height="1" fill="#2de2e6"/><rect x="5" y="6" width="1" height="1" fill="#ecebff"/><rect x="6" y="6" width="1" height="1" fill="#ecebff"/><rect x="7" y="6" width="1" height="1" fill="#2de2e6"/><rect x="0" y="7" width="1" height="1" fill="#2de2e6"/><rect x="1" y="7" width="1" height="1" fill="#2de2e6"/><rect x="2" y="7" width="1" height="1" fill="#2de2e6"/><rect x="3" y="7" width="1" height="1" fill="#2de2e6"/><rect x="4" y="7" width="1" height="1" fill="#2de2e6"/><rect x="5" y="7" width="1" height="1" fill="#2de2e6"/><rect x="6" y="7" width="1" height="1" fill="#2de2e6"/><rect x="7" y="7" width="1" height="1" fill="#2de2e6"/></svg><h3>LOGIC &amp; GRID</h3><p>Deduction puzzles that start gentle and end mean. Every one has exactly one solution.</p></div>
+        <div class="card frame"><svg class="ico" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="0" width="1" height="1" fill="#ffd319"/><rect x="1" y="0" width="1" height="1" fill="#ffd319"/><rect x="2" y="0" width="1" height="1" fill="#ffd319"/><rect x="3" y="0" width="1" height="1" fill="#ffd319"/><rect x="4" y="0" width="1" height="1" fill="#ffd319"/><rect x="5" y="0" width="1" height="1" fill="#ffd319"/><rect x="6" y="0" width="1" height="1" fill="#ffd319"/><rect x="7" y="0" width="1" height="1" fill="#ffd319"/><rect x="0" y="1" width="1" height="1" fill="#ffd319"/><rect x="1" y="1" width="1" height="1" fill="#ff781e"/><rect x="2" y="1" width="1" height="1" fill="#ffd319"/><rect x="3" y="1" width="1" height="1" fill="#ffd319"/><rect x="4" y="1" width="1" height="1" fill="#ffd319"/><rect x="5" y="1" width="1" height="1" fill="#ffd319"/><rect x="6" y="1" width="1" height="1" fill="#ff781e"/><rect x="7" y="1" width="1" height="1" fill="#ffd319"/><rect x="0" y="2" width="1" height="1" fill="#ffd319"/><rect x="1" y="2" width="1" height="1" fill="#ff781e"/><rect x="2" y="2" width="1" height="1" fill="#ffd319"/><rect x="3" y="2" width="1" height="1" fill="#ffd319"/><rect x="4" y="2" width="1" height="1" fill="#ffd319"/><rect x="5" y="2" width="1" height="1" fill="#ffd319"/><rect x="6" y="2" width="1" height="1" fill="#ff781e"/><rect x="7" y="2" width="1" height="1" fill="#ffd319"/><rect x="1" y="3" width="1" height="1" fill="#ffd319"/><rect x="2" y="3" width="1" height="1" fill="#ffd319"/><rect x="3" y="3" width="1" height="1" fill="#ffd319"/><rect x="4" y="3" width="1" height="1" fill="#ffd319"/><rect x="5" y="3" width="1" height="1" fill="#ffd319"/><rect x="6" y="3" width="1" height="1" fill="#ffd319"/><rect x="2" y="4" width="1" height="1" fill="#ffd319"/><rect x="3" y="4" width="1" height="1" fill="#ffd319"/><rect x="4" y="4" width="1" height="1" fill="#ffd319"/><rect x="5" y="4" width="1" height="1" fill="#ffd319"/><rect x="3" y="5" width="1" height="1" fill="#ffd319"/><rect x="4" y="5" width="1" height="1" fill="#ffd319"/><rect x="2" y="6" width="1" height="1" fill="#ff781e"/><rect x="3" y="6" width="1" height="1" fill="#ff781e"/><rect x="4" y="6" width="1" height="1" fill="#ff781e"/><rect x="5" y="6" width="1" height="1" fill="#ff781e"/><rect x="1" y="7" width="1" height="1" fill="#ffd319"/><rect x="2" y="7" width="1" height="1" fill="#ffd319"/><rect x="3" y="7" width="1" height="1" fill="#ffd319"/><rect x="4" y="7" width="1" height="1" fill="#ffd319"/><rect x="5" y="7" width="1" height="1" fill="#ffd319"/><rect x="6" y="7" width="1" height="1" fill="#ffd319"/></svg><h3>GAMING TRIVIA</h3><p>Multiple-choice questions on consoles, arcades, legendary developers and the secrets they left behind.</p></div>
+        <div class="card frame"><svg class="ico" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="0" width="1" height="1" fill="#ff3caa"/><rect x="1" y="0" width="1" height="1" fill="#ff3caa"/><rect x="2" y="0" width="1" height="1" fill="#ff3caa"/><rect x="3" y="0" width="1" height="1" fill="#ff3caa"/><rect x="4" y="0" width="1" height="1" fill="#ff3caa"/><rect x="5" y="0" width="1" height="1" fill="#ff3caa"/><rect x="6" y="0" width="1" height="1" fill="#ff3caa"/><rect x="7" y="0" width="1" height="1" fill="#ff3caa"/><rect x="0" y="1" width="1" height="1" fill="#ff3caa"/><rect x="1" y="1" width="1" height="1" fill="#ecebff"/><rect x="2" y="1" width="1" height="1" fill="#ff3caa"/><rect x="3" y="1" width="1" height="1" fill="#ecebff"/><rect x="4" y="1" width="1" height="1" fill="#ecebff"/><rect x="5" y="1" width="1" height="1" fill="#ff3caa"/><rect x="6" y="1" width="1" height="1" fill="#ecebff"/><rect x="7" y="1" width="1" height="1" fill="#ff3caa"/><rect x="0" y="2" width="1" height="1" fill="#ff3caa"/><rect x="1" y="2" width="1" height="1" fill="#ff3caa"/><rect x="2" y="2" width="1" height="1" fill="#ff3caa"/><rect x="3" y="2" width="1" height="1" fill="#ff3caa"/><rect x="4" y="2" width="1" height="1" fill="#ff3caa"/><rect x="5" y="2" width="1" height="1" fill="#ff3caa"/><rect x="6" y="2" width="1" height="1" fill="#ff3caa"/><rect x="7" y="2" width="1" height="1" fill="#ff3caa"/><rect x="0" y="3" width="1" height="1" fill="#ff3caa"/><rect x="1" y="3" width="1" height="1" fill="#ecebff"/><rect x="2" y="3" width="1" height="1" fill="#ecebff"/><rect x="3" y="3" width="1" height="1" fill="#ff3caa"/><rect x="4" y="3" width="1" height="1" fill="#ecebff"/><rect x="5" y="3" width="1" height="1" fill="#ecebff"/><rect x="6" y="3" width="1" height="1" fill="#ff3caa"/><rect x="7" y="3" width="1" height="1" fill="#ff3caa"/><rect x="0" y="4" width="1" height="1" fill="#ff3caa"/><rect x="1" y="4" width="1" height="1" fill="#ff3caa"/><rect x="2" y="4" width="1" height="1" fill="#ff3caa"/><rect x="3" y="4" width="1" height="1" fill="#ff3caa"/><rect x="4" y="4" width="1" height="1" fill="#ff3caa"/><rect x="5" y="4" width="1" height="1" fill="#ff3caa"/><rect x="6" y="4" width="1" height="1" fill="#ff3caa"/><rect x="7" y="4" width="1" height="1" fill="#ff3caa"/><rect x="0" y="5" width="1" height="1" fill="#ff3caa"/><rect x="1" y="5" width="1" height="1" fill="#ecebff"/><rect x="2" y="5" width="1" height="1" fill="#ff3caa"/><rect x="3" y="5" width="1" height="1" fill="#ecebff"/><rect x="4" y="5" width="1" height="1" fill="#ecebff"/><rect x="5" y="5" width="1" height="1" fill="#ecebff"/><rect x="6" y="5" width="1" height="1" fill="#ff3caa"/><rect x="7" y="5" width="1" height="1" fill="#ff3caa"/><rect x="0" y="6" width="1" height="1" fill="#ff3caa"/><rect x="1" y="6" width="1" height="1" fill="#ff3caa"/><rect x="2" y="6" width="1" height="1" fill="#ff3caa"/><rect x="3" y="6" width="1" height="1" fill="#ff3caa"/><rect x="4" y="6" width="1" height="1" fill="#ff3caa"/><rect x="5" y="6" width="1" height="1" fill="#ff3caa"/><rect x="6" y="6" width="1" height="1" fill="#ff3caa"/><rect x="7" y="6" width="1" height="1" fill="#ff3caa"/></svg><h3>CROSSWORDS &amp; WORDS</h3><p>Themed crosswords and word searches full of arcade slang, console lore and dungeon gear.</p></div>
+        <div class="card frame"><svg class="ico" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="1" height="1" fill="#ffd319"/><rect x="3" y="0" width="1" height="1" fill="#ffd319"/><rect x="4" y="0" width="1" height="1" fill="#ffd319"/><rect x="1" y="1" width="1" height="1" fill="#ffd319"/><rect x="5" y="1" width="1" height="1" fill="#ffd319"/><rect x="1" y="2" width="1" height="1" fill="#ffd319"/><rect x="5" y="2" width="1" height="1" fill="#ffd319"/><rect x="2" y="3" width="1" height="1" fill="#ffd319"/><rect x="3" y="3" width="1" height="1" fill="#ffd319"/><rect x="4" y="3" width="1" height="1" fill="#ffd319"/><rect x="3" y="4" width="1" height="1" fill="#ffd319"/><rect x="3" y="5" width="1" height="1" fill="#ffd319"/><rect x="4" y="5" width="1" height="1" fill="#ffd319"/><rect x="3" y="6" width="1" height="1" fill="#ffd319"/><rect x="3" y="7" width="1" height="1" fill="#ffd319"/><rect x="4" y="7" width="1" height="1" fill="#ffd319"/></svg><h3>FULL ANSWER KEY</h3><p>Every solution at the back of the book, for when you are stuck or just want to check.</p></div>
+      </div>
     </div>
-    <a class="secret-link" href="/secret">paxandchoco.com/secret</a>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="room frame magenta">
+        <img src="/assets/img/crt-room.jpg" width="1200" height="854" alt="Pixel art of a child in an 1980s bedroom, the game world pouring out of a glowing CRT television" loading="lazy">
+        <div class="txt">
+          <span class="tag magenta" style="align-self:flex-start">SECRET LEVEL DETECTED</span>
+          <div class="big">Somewhere in the book, a code is hiding.</div>
+          <p class="muted">Pay attention to the marks. Collect what they show you. When you have the whole code, this is where you enter it.</p>
+          <a class="btn magenta" href="/secret/" style="align-self:flex-start">ENTER THE SECRET LEVEL</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <span>&copy; <span data-year>2026</span> PAX &amp; CHOCO PUBLISHING</span>
+    <span>INSERT COIN TO CONTINUE</span>
   </div>
-
-  <div class="ornament"><span>✦</span></div>
-
-  <div class="rule-thick" style="margin-top:0.8rem"></div>
-  <div class="rule-thin" style="margin-top:3px"></div>
-
-  <div class="footer">
-    <span>PAX &amp; CHOCO PUBLISHING</span>
-    <span>&copy; 2025</span>
-  </div>
-
-</div>
+</footer>
+<script src="/assets/site.js"></script>
 </body>
 </html>
