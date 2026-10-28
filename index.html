@@ -25,6 +25,8 @@
 .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 .facts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; font-family: var(--term); font-size: 21px; color: var(--muted); }
 .facts b { color: var(--yellow); font-weight: 400; }
+.stores { margin-top: 14px; font-family: var(--term); font-size: 20px; color: var(--muted); }
+.stores a { color: var(--cyan); }
 section { padding: 36px 0; }
 .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .card { padding: 22px 20px; }
@@ -39,6 +41,7 @@ section { padding: 36px 0; }
   .hero .logo { text-align: center; }
   .hero .kicker, .hero .lede { text-align: center; margin: 0 auto; }
   .cta, .facts { justify-content: center; }
+  .stores { text-align: center; }
   .cover { max-width: 320px; }
   .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -76,6 +79,7 @@ section { padding: 36px 0; }
           <a class="btn" data-amazon="GET IT ON AMAZON">COMING SOON ON AMAZON</a>
           <a class="btn ghost" href="/secret/">I CRACKED THE CODE</a>
         </div>
+        <p class="stores" data-stores hidden></p>
         <div class="facts"><span><b>120</b> pages</span><span><b>8.5&times;11"</b> paperback</span><span><b>1</b> hidden code</span></div>
       </div>
     </div>
